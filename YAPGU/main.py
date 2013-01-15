@@ -1,8 +1,4 @@
-'''
-Created on 15-01-2013
+"Main file of our program."
 
-@author: simon
-'''
-
-if __name__ == '__main__':
-    pass
+def start(argv):
+    print "Code of your marvelous game here!"
