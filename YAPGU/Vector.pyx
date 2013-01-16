@@ -1,12 +1,19 @@
-#from math import sqrt,atan2,pi,radians,sin,cos
+from __future__ import division
+"""
+Vector class.
+Some math and stuff.
+"""
+
+#Oh so fast.
 cdef extern from "math.h":
     float cosf(float theta)
     float sinf(float theta)
     float atan2f(float x, float y)
     float sqrtf(float x)
 
+
 cdef float pi = 3.14159265
-cdef float pi_180 = pi/180.0
+cdef float pi_180 = pi/180.0 #
 
 cdef float radians(float deg):
     return deg*pi_180
@@ -43,6 +50,14 @@ cdef class Vector2D:
         self.x /= rhs
         self.y /= rhs
         return self
+    def __richcmp__(self, other, int c): #TODO: Hmm, lesser and greater operators?
+        if not isinstance(other, Vector2D):
+            return False
+        if c == 2:
+            return self.x == (<Vector2D>other).x and self.y == (<Vector2D>other).y
+        elif c == 3:
+            return self.x != (<Vector2D>other).x or self.y != (<Vector2D>other).y
+
     def __neg__ (Vector2D self):
         return Vector2D(-self.x,-self.y)
     def __str__(Vector2D self):
