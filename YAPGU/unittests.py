@@ -17,7 +17,7 @@ failedTaunts = [ "as was to be expected",
           "so surprising",
           "as always",
           "Nihili Novi",
-          "dear developer, you sucks"
+          "dear developer, you suck"
           ]
 import random
 def passedTaunt():
