@@ -39,6 +39,9 @@ also by the pypy implementation of the same thing (buggy, not being maintained?)
 https://codespeak.net/viewvc/pypy/dist/pypy/lib/stackless.py?view=markup
 """
 
+import sys # Hacky hack.
+sys.path.append("/usr/local/lib/python2.7/dist-packages") # My Python doesn't find greenlet without this entry in path.
+
 from greenlet import greenlet #as of version 1.0 of py, it does not supply greenlets anymore
 
 assert hasattr(greenlet, 'throw'), (
