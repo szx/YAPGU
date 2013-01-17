@@ -22,13 +22,14 @@ def wait(obj, seconds, func = None):
             break
         
 schedule = stackless.schedule
-count = stackless.getruncount
+def count():
+    return stackless.getruncount() - 1
 
 def run():
     """
     Schedules stackless until there aren't running processes.
     """
-    while count() != 1:
+    while count() != 0:
         schedule()
         
 def microthread(func):
