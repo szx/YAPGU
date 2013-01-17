@@ -1,8 +1,8 @@
+"""
+Mathematics utility functions and classes:
+I have no idea why I named it "mathf".
+"""
 from __future__ import division
-"""
-Vector class.
-Some math and stuff.
-"""
 
 #Oh so fast.
 cdef extern from "math.h":
@@ -10,7 +10,6 @@ cdef extern from "math.h":
     float sinf(float theta)
     float atan2f(float x, float y)
     float sqrtf(float x)
-
 
 cdef float pi = 3.14159265
 cdef float pi_180 = pi/180.0 #
