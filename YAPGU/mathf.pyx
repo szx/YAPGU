@@ -23,7 +23,7 @@ cdef class Vector2D:
     Two-dimensional vector class.
     '''
     cdef public float x, y
-    def __init__(Vector2D self,float x,float y):
+    def __init__(Vector2D self, float x, float y):
         self.x,self.y = x,y
     def __add__(Vector2D self, Vector2D rhs):
         return Vector2D(self.x + rhs.x, self.y + rhs.y)
@@ -74,12 +74,12 @@ cpdef float Distance(Vector2D vec1, Vector2D vec2 ):
     return sqrtf((vec1.x-vec2.x)**2 + (vec1.y-vec2.y)**2)
 
 cpdef float Dot(Vector2D a, Vector2D b):
-    return (a.x * b.x + a.y * b.y)
+    return (a.x*b.x + a.y*b.y)
 
 cpdef float LookAt(Vector2D a, Vector2D b):
     """ Returns rotation in degrees.
     a is object, that b wants see."""
-    return atan2f((a.x - b.x),(a.y - b.y)) * 180.0/pi
+    return atan2f((a.x - b.x), (a.y - b.y)) * 180.0/pi
 
 cpdef Vector2D SetLength(Vector2D v, float l):
     return Normalized(v) * l
