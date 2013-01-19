@@ -24,7 +24,7 @@ def init(width, height, drawingFunc, vSync = False):
         graphics.init(800, 600, drawFunc) #Initializing with 800x600 window.
     
     Notes:
-    - Initialize pyglet after loading all assets. (szx)
+        - Initialize pyglet after loading all assets. (szx)
     
     Maintainers: szx
     Last update date: 19.01.2013 
@@ -68,22 +68,22 @@ class Sprite:
     from a sprite sheet and looped, paused as well as accelerated and slowed.
     
     Methods:
-    __init()__
-    load()
-    draw()
+        __init()__
+        load()
+        draw()
 
     Variables:
-    position
-    rotation = 0.0
-    scaling = Vector2D(0.0,0.0)
-    width = 0
-    height = 0
-    frames = 1
-    frame = 0
-    fps = 1
-    looped = True
-    paused = True
-    elapsed = 0.0
+        position
+        rotation = 0.0
+        scaling = Vector2D(0.0,0.0)
+        width = 0
+        height = 0
+        frames = 1
+        frame = 0
+        fps = 1
+        looped = True
+        paused = True
+        elapsed = 0.0
         
     General usage:
         # Move sprite to (20,300) and load sprite sheet "star.png" with
@@ -95,9 +95,9 @@ class Sprite:
         star.draw() # Draw sprite.
     
     Notes:
-    - You don't have to bother yourself with the updating a elapsed
-    time: SpriteSupermeCommander microthread does it for you. (szx)
-    - Sprite is automatically paused if animation frames count is one. (szx)
+        - You don't have to bother yourself with the updating a elapsed
+        time: SpriteSupermeCommander microthread does it for you. (szx)
+        - Sprite is automatically paused if animation frames count is one. (szx)
     
     Maintainers: szx
     Last update date: 19.01.2013
@@ -158,8 +158,8 @@ def SpriteSupermeCommander():
     frame, prepares internal rendering for drawing sprite etc.
     
     Notes:
-    - Nope, I won't change its name to some wimpy "SpriteManager". (szx)
-    - Screw your threads. (szx)
+        - Nope, I won't change its name to some wimpy "SpriteManager". (szx)
+        - Screw your threads. (szx)
     
     Maintainer: szx
     Last update date: 19.01.2013
