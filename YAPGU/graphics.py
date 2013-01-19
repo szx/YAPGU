@@ -103,7 +103,7 @@ class Sprite:
     Last update date: 19.01.2013
     
     """
-    def __init__(self, filename, position, rotation=0.0, frames=1):
+    def __init__(self, filename, position, rotation=0.0, frames=1, startFrame=0, endFrame=-1):
         """
         Initializes a 'Sprite' object.
         Parameters:
@@ -111,6 +111,10 @@ class Sprite:
             - 'position': Vector2D position of sprite.
             - 'rotation': rotation of sprite.
             - 'frames': count of animation frames.
+            - 'startFrame': animation's first frame.
+            - 'endFrame': animation's last frame.
+        Notes:
+            - If endFrame is -1, then it will have frames value.
         """
         _sprites.append(self)
         
@@ -130,9 +134,9 @@ class Sprite:
         self._imageSeq = None
         self._imageTexSeq = None
         self._sprite = None
-        self.load(filename, frames)
+        self.load(filename, frames, startFrame, endFrame)
         
-    def load(self, filename, frames):
+    def load(self, filename, frames, startFrame=0, endFrame=-1):
         self.frames = frames
         try:
             image = pyglet.resource.image(filename)
@@ -140,7 +144,7 @@ class Sprite:
             print "Not found!"
             raise e
         self._imageSeq = pyglet.image.ImageGrid(image, 1, self.frames)
-        self._imageTexSeq = pyglet.image.TextureGrid(self._imageSeq)
+        self._imageTexSeq = pyglet.image.TextureGrid(self._imageSeq)[startFrame:endFrame if endFrame != -1 else frames+1]
         print self._imageTexSeq
         self.width = image.width / self.frames
         self.height = image.height
@@ -167,7 +171,7 @@ def SpriteSupermeCommander():
     while True: #TODO Something.
         dt = logic.delta()
         for sprite in _sprites:
-            print "Dt:",dt
+            print "Frame:",sprite.frame
             if sprite.paused:
                 return
             if sprite.frames > 1:
