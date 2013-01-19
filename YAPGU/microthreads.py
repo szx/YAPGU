@@ -20,9 +20,12 @@ def wait(obj, seconds, func = None):
             stackless.schedule()
         else:
             break
-        
+
 schedule = stackless.schedule
+
 def count():
+    # Actually there are two default microthreads - greenstackless's one and
+    # SpriteSupermeCommander.
     return stackless.getruncount() - 1
 
 def run():
