@@ -49,7 +49,7 @@ def assetDirectory(*arg):
         sprite = Sprite('enemy.jpg')
         
     Notes:
-    - Naturally call it before loding you assets. (szx)
+    - Naturally call it before loading your assets. (szx)
     
     Maintainers: szx
     Last update date: 19.01.2013 
@@ -107,10 +107,10 @@ class Sprite:
         """
         Initializes a 'Sprite' object.
         Parameters:
-        - 'filename': string to sprite filename.
-        - 'position': Vector2D position of sprite.
-        - 'rotation': rotation of sprite.
-        - 'frames': count of animation frames.
+            - 'filename': string to sprite filename.
+            - 'position': Vector2D position of sprite.
+            - 'rotation': rotation of sprite.
+            - 'frames': count of animation frames.
         """
         _sprites.append(self)
         
