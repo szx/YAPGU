@@ -6,7 +6,7 @@ import pyglet
 
 batch = pyglet.graphics.Batch
 patch = pyglet.resource.path
-window = None
+_window = None
 
 from microthreads import microthread, schedule
 def init(width, height, drawingFunc, vSync = False):
@@ -29,14 +29,15 @@ def init(width, height, drawingFunc, vSync = False):
     Maintainers: szx
     Last update date: 19.01.2013 
     """
+    global _window
     pyglet.options['audio'] = ('directsound', 'openal', 'silent')
-    window = pyglet.window.Window(800,600, vsync=vSync)
+    _window = pyglet.window.Window(800,600, vsync=vSync)
     microthread(SpriteSupermeCommander)
     schedule() # Schedule all default microthreads
     
-    @window.event
+    @_window.event
     def on_draw():
-        window.clear()
+        _window.clear()
         drawingFunc()
     
 def assetDirectory(*arg):
