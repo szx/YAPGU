@@ -8,7 +8,7 @@ def delta():
     Returns delta time.
     
     Notes:
-    - I'm really not sure, why I need this... (szx)
+        - I'm really not sure, why I need this... (szx)
     
     Maintainers: szx
     Last update date: 19.01.2013
@@ -20,7 +20,7 @@ def start():
     Starts actual game.
     
     Notes:
-    - Thou shall not call it before graphics.init(). (szx)
+        - Thou shall not call it before graphics.init(). (szx)
     
     Maintainers: szx
     Last update date: 19.01.2013 
