@@ -22,6 +22,10 @@ def start(argv):
         while True:
             if inputf.keyboard[inputf.key.UP]:
                 sprite.position.y += 10 * logic.delta()
+            if inputf.mouse.left:
+                sprite.position.x += 10 * logic.delta()
+            else:
+                sprite.position.x -= 10 * logic.delta()
             microthreads.schedule()
             
     microthreads.microthread(movementMicrothread)
