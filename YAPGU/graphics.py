@@ -27,9 +27,10 @@ def init(width, height, drawingFunc, vSync = False):
         - Initialize pyglet after loading all assets. (szx)
     
     Maintainers: szx
-    Last update date: 19.01.2013 
+    Last update date: 20.01.2013 
     """
     global _window
+    pyglet.options['debug_gl'] = False
     pyglet.options['audio'] = ('directsound', 'openal', 'silent')
     _window = pyglet.window.Window(800,600, vsync=vSync)
     microthread(SpriteSupermeCommander)
