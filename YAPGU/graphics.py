@@ -41,6 +41,7 @@ def init(width, height, drawingFunc, vSync = False):
         _window.clear()
         drawingFunc()
     
+
 def assetDirectory(*arg):
     """
     Adds path(s) to game's assets.
@@ -100,9 +101,10 @@ class Sprite:
         - You don't have to bother yourself with the updating a elapsed
         time: SpriteSupermeCommander microthread does it for you. (szx)
         - Sprite is automatically paused if animation frames count is one. (szx)
+        - Sprite's center is in the middle of it. (szx)
     
     Maintainers: szx
-    Last update date: 19.01.2013
+    Last update date: 22.01.2013
     
     """
     def __init__(self, filename, position, rotation=0.0, frames=1, startFrame=0, endFrame=-1):
@@ -146,16 +148,21 @@ class Sprite:
             print "Not found!"
             raise e
         self._imageSeq = pyglet.image.ImageGrid(image, 1, self.frames)
+        self._imageSeq.anchor_x,self._imageSeq.anchor_y = image.width/2, image.height/2
+        
         self._imageTexSeq = pyglet.image.TextureGrid(self._imageSeq)[startFrame:endFrame if endFrame != -1 else frames+1]
         print self._imageTexSeq
         self.width = image.width / self.frames
         self.height = image.height
+        for image in self._imageTexSeq:
+            image.anchor_x = image.width/2.0
+            image.anchor_y = image.height/2.0
     
     def draw(self):
         #self._sprite.position = (self.position.x,self.position.y)
         #self._sprite.rotation = self.rotation
         self._sprite.draw()
-        
+    
 import logic
 def SpriteSupermeCommander():
     """
@@ -168,12 +175,11 @@ def SpriteSupermeCommander():
         - Screw your threads. (szx)
     
     Maintainer: szx
-    Last update date: 19.01.2013
+    Last update date: 22.01.2013
     """
     while True: #TODO Something.
         dt = logic.delta()
         for sprite in _sprites:
-            print "Frame:",sprite.frame
             if sprite.paused:
                 return
             if sprite.frames > 1:
@@ -188,6 +194,7 @@ def SpriteSupermeCommander():
                     sprite.elapsed -= 1.0 / sprite.fps
                     
             sprite._sprite = pyglet.sprite.Sprite(sprite._imageTexSeq[sprite.frame])
+            # Sprite x anchor should be in the middle.
             sprite._sprite.position = (sprite.position.x,sprite.position.y)
             sprite._sprite.rotation = sprite.rotation
             
