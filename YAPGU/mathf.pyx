@@ -59,6 +59,8 @@ cdef class Vector2D:
 
     def __neg__ (Vector2D self):
         return Vector2D(-self.x,-self.y)
+    def inRect(Vector2D self, object rect):
+        return self.x < rect.position.x + rect.width/2.0 and self.x > rect.position.x - rect.width/2.0 and self.y < rect.position.y + rect.height/2.0 and self.y > rect.position.y - rect.height/2.0
     def __str__(Vector2D self):
         return "(" + str(self.x) + "," + str(self.y) +  ")"
     
