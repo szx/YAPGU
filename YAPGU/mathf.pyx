@@ -91,3 +91,12 @@ cpdef MoveLocal(Vector2D vec, float rot, float dist):
     vec.x +=  -sinf(angle_radians) * dist
     vec.y +=  cosf(angle_radians) * dist
 
+
+cdef class Color:
+    cdef public int r, g, b, a
+    def __init__(Color self, int r, int g, int b, int a = 255):
+        self.r = r
+        self.g = g
+        self.b = b
+        self.a = a
+    
