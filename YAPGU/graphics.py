@@ -166,7 +166,7 @@ class Sprite:
 import logic
 def SpriteSupermeCommander():
     """
-    A SpriteSupermeCommander function, one of YAPGU default microthreads,
+    The SpriteSupermeCommander function, one of YAPGU default microthreads,
     which updates all registered Sprite objects - sets actual animation
     frame, prepares internal rendering for drawing sprite etc.
     
@@ -194,7 +194,6 @@ def SpriteSupermeCommander():
                     sprite.elapsed -= 1.0 / sprite.fps
                     
             sprite._sprite = pyglet.sprite.Sprite(sprite._imageTexSeq[sprite.frame])
-            # Sprite x anchor should be in the middle.
             sprite._sprite.position = (sprite.position.x,sprite.position.y)
             sprite._sprite.rotation = sprite.rotation
             
