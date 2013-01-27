@@ -6,7 +6,10 @@ import pyglet
 
 batch = pyglet.graphics.Batch
 patch = pyglet.resource.path
+# Main windows of our game.
 _window = None
+# Text label used to draw a text.
+_label = None
 
 from microthreads import microthread, schedule
 def init(width, height, drawingFunc, vSync = False):
@@ -18,7 +21,7 @@ def init(width, height, drawingFunc, vSync = False):
         ...
         sprite = Sprite(...)
         ...
-        # Defining main drawing function.
+        # Defining drawing function.
         def drawFunc():
             sprite.draw()
         graphics.init(800, 600, drawFunc) #Initializing with 800x600 window.
@@ -30,18 +33,35 @@ def init(width, height, drawingFunc, vSync = False):
     Last update date: 20.01.2013 
     """
     global _window
+    global _label
+    # Speed hack.
     pyglet.options['debug_gl'] = False
+    # Audio configuration.
     pyglet.options['audio'] = ('directsound', 'openal', 'silent')
+    # Initializing text label.
+    _label = pyglet.text.Label('',
+                               font_name='Times New Roman',
+                               font_size=36)
+    # Initializing Pyglet's main window.
     _window = pyglet.window.Window(800,600, vsync=vSync)
+    # Making SpriteSupermeCommander microthread.
     microthread(SpriteSupermeCommander)
-    schedule() # Schedule all default microthreads
-    
+
+    #Pyglet's main rendering function.
     @_window.event
     def on_draw():
         _window.clear()
         drawingFunc()
     
-
+from mathf import Color
+def drawText(text, position, color = Color(255,255,255), size = 36, font = "Times New Roman"):
+    _label.text = text
+    _label.x, _label.y = (position.x, position.y)
+    _label.color = (color.r, color.g, color.b, color.a)
+    _label.size = size
+    _label.font = font
+    _label.draw()
+    
 def assetDirectory(*arg):
     """
     Adds path(s) to game's assets.
@@ -137,7 +157,10 @@ class Sprite:
         
         self._imageSeq = None
         self._imageTexSeq = None
-        self._sprite = None
+        class DummySprite:
+            def draw(self):
+                print "Dummy"
+        self._sprite = DummySprite()
         self.load(filename, frames, startFrame, endFrame)
         
     def load(self, filename, frames, startFrame=0, endFrame=-1):
@@ -180,18 +203,17 @@ def SpriteSupermeCommander():
     while True: #TODO Something.
         dt = logic.delta()
         for sprite in _sprites:
-            if sprite.paused:
-                return
-            if sprite.frames > 1:
-                sprite.elapsed += dt
-                if sprite.elapsed > 1.0 / sprite.fps:
-                    sprite.frame += 1
-                    if sprite.frame >= sprite.frames:
-                        if not sprite.looped:
-                            sprite.paused = True
-                        else:
-                            sprite.frame = 0
-                    sprite.elapsed -= 1.0 / sprite.fps
+            if not sprite.paused:
+                if sprite.frames > 1:
+                    sprite.elapsed += dt
+                    if sprite.elapsed > 1.0 / sprite.fps:
+                        sprite.frame += 1
+                        if sprite.frame >= sprite.frames:
+                            if not sprite.looped:
+                                sprite.paused = True
+                            else:
+                                sprite.frame = 0
+                        sprite.elapsed -= 1.0 / sprite.fps
                     
             sprite._sprite = pyglet.sprite.Sprite(sprite._imageTexSeq[sprite.frame])
             sprite._sprite.position = (sprite.position.x,sprite.position.y)
